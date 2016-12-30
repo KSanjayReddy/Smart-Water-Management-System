@@ -1,0 +1,129 @@
+<html>
+  <head>
+
+    <meta charset="utf-8">
+    <title>1Tuch gauge</title>
+
+    <script type="text/javascript" src="http://static.fusioncharts.com/code/latest/fusioncharts.js"></script>
+    <script type="text/javascript" src="http://static.fusioncharts.com/code/latest/themes/fusioncharts.theme.fint.js?cacheBust=56"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='jquery-3.1.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='fusioncharts-jquery-plugin.js') }}"></script>
+
+    <script type="text/javascript">
+      var ds1 = {
+          "chart": {
+            "theme": "fint",
+            "caption": "Overhead Tank Level",
+            "subcaption": "Kriyative Edge",
+            "lowerLimit": "0",
+            "upperLimit": "50",
+            "lowerLimitDisplay": "Empty",
+            "upperLimitDisplay": "Full",
+            "numberSuffix": " ltrs",
+            "showValue": "1",
+            "chartBottomMargin": "25"
+        },
+        "value": 0
+      }
+      var ds2 = {
+          "chart": {
+            "theme": "fint",
+            "caption": "Sump Tank Level",
+            "subcaption": "Kriyative Edge",
+            "lowerLimit": "0",
+            "upperLimit": "50",
+            "lowerLimitDisplay": "Empty",
+            "upperLimitDisplay": "Full",
+            "numberSuffix": " ltrs",
+            "showValue": "1",
+            "chartBottomMargin": "25"
+        },
+        "value": 0
+      }
+      $(document).ready(function(){
+
+          setInterval(function(){
+            $.ajax({
+            //url : '/return_global',
+            url :'/return_global',
+            method : 'GET',
+            success : function(response){
+              $('#status1').html(response.tank1);
+              $('#status2').html(response.tank2);
+              $('#status3').html(response.stat);
+              ds1.value = response.tank1
+              ds2.value = response.tank2
+              $('#chart-container-1').updateFusionCharts({dataSource:ds1})
+              $('#chart-container-2').updateFusionCharts({dataSource:ds2})
+            }
+          })
+        },500);
+        $('#chart-container-1').insertFusionCharts({
+          type: 'cylinder',
+          dataFormat: 'json',
+          id: 'tank1',
+          renderAt: 'chart-container',
+          width: '250',
+          height: '350',
+          dataSource: ds1
+        })
+
+        $('#chart-container-2').insertFusionCharts({
+          type: 'cylinder',
+          dataFormat: 'json',
+          id: 'tank1',
+          renderAt: 'chart-container',
+          width: '250',
+          height: '350',
+          dataSource: ds2
+        })
+    })
+    </script>
+
+    <script type="text/javascript">
+    $(document).ready(function(){
+      $('#mainform').submit(function(){
+        event.preventDefault()
+        $.ajax({
+          url : '/change',
+          method : 'POST',
+          data : $('#mainform').serialize(),
+          success : function(response){
+            $('#status4').html(response)
+          }
+        })
+      })
+    })
+  </script>
+
+  </head>
+  <body>
+
+    <h2>Control Panel</h2>
+    <h2>Status of button is : <span id='status4'>No Data</span></h2>
+    <form id='mainform' action="/change" method="post">
+      Automatic<input type="radio" name="switch" value="auto">
+      Manual ON<input type="radio" name="switch" value="on">
+      Manual OFF<input type="radio" name="switch" value="off">
+      <input type="submit" name="submit" value="Submit">
+    </form>
+
+
+    <div class="tank1" style="float:left;margin-left:100px">
+      <h1>Overhead Tank Level</h1>
+      <h1 style="margin-left:100px" id='status1'>No Data</h1>
+        <div id="chart-container-1">Tank 1 will load here</div>
+    </div>
+
+    <div class="tank2" style="float:right;margin-right:100px">
+      <h1>Sump Tank Level</h1>
+      <h1 style="margin-left:100px" id='status2'>No Data</h1>
+      <div id='chart-container-2'>Tank 2 will load here</div>
+    </div>
+
+    <h1 style="float:left;margin-left:70px; margin-top:350px"> Motor Status:</h1>
+    <h1 style="float:left;margin-left:20px; margin-top:350px" id= "status3">No Data</h1>
+
+
+  </body>
+</html>
