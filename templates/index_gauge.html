@@ -3,10 +3,11 @@
 
     <meta charset="utf-8">
     <title>1Tuch gauge</title>
+        <script type="text/javascript" src="{{url_for('static', filename='fusioncharts.js') }}"></script>
     <script type="text/javascript" src="{{url_for('static', filename='jquery-3.1.1.min.js') }}"></script>
+    <!-- <script type="text/javascript" src="{{url_for('static', filename='fusioncharts.theme.fint.js') }}"></script> -->
 
-    <script type="text/javascript" src="{{url_for('static', filename='fusioncharts.js') }}"></script>
-    <script type="text/javascript" src="{{url_for('static', filename='fusioncharts.theme.fint.js') }}"></script>
+
     <script type="text/javascript" src="{{url_for('static', filename='fusioncharts-jquery-plugin.js') }}"></script>
 
     <script type="text/javascript">
@@ -73,7 +74,7 @@
         $('#chart-container-2').insertFusionCharts({
           type: 'cylinder',
           dataFormat: 'json',
-          id: 'tank1',
+          id: 'tank2',
           renderAt: 'chart-container',
           width: '250',
           height: '350',
