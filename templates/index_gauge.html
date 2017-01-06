@@ -3,10 +3,10 @@
 
     <meta charset="utf-8">
     <title>1Tuch gauge</title>
-
-    <script type="text/javascript" src="http://static.fusioncharts.com/code/latest/fusioncharts.js"></script>
-    <script type="text/javascript" src="http://static.fusioncharts.com/code/latest/themes/fusioncharts.theme.fint.js?cacheBust=56"></script>
     <script type="text/javascript" src="{{url_for('static', filename='jquery-3.1.1.min.js') }}"></script>
+
+    <script type="text/javascript" src="{{url_for('static', filename='fusioncharts.js') }}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='fusioncharts.theme.fint.js') }}"></script>
     <script type="text/javascript" src="{{url_for('static', filename='fusioncharts-jquery-plugin.js') }}"></script>
 
     <script type="text/javascript">
@@ -50,14 +50,16 @@
             success : function(response){
               $('#status1').html(response.tank1);
               $('#status2').html(response.tank2);
+              $('#status6').html(response.net);
               $('#status3').html(response.stat);
+              $('#status5').html(response.time);
               ds1.value = response.tank1
               ds2.value = response.tank2
               $('#chart-container-1').updateFusionCharts({dataSource:ds1})
               $('#chart-container-2').updateFusionCharts({dataSource:ds2})
             }
           })
-        },500);
+        },800);
         $('#chart-container-1').insertFusionCharts({
           type: 'cylinder',
           dataFormat: 'json',
@@ -124,6 +126,8 @@
     <h1 style="float:left;margin-left:70px; margin-top:350px"> Motor Status:</h1>
     <h1 style="float:left;margin-left:20px; margin-top:350px" id= "status3">No Data</h1>
 
+    <h1 style=" position:absolute; margin-left:500px"> On Time: <span id="status5">0</span>sec</h1>
+    <h1 style=" position:absolute; margin-left:500px; margin-top:50px"> Net Water: <span id="status6"></span> ltrs</h1>
 
   </body>
 </html>
