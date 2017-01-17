@@ -1,14 +1,23 @@
+# In every route which requires login , just put if logged_in:
+# Logout button that send request to /logout
+
+
+
+
+
 from flask import Flask, render_template, url_for
 from flask import jsonify, request
 from flask import flash, redirect,abort
+
 import datetime as d
+app = Flask(__name__)
 lastOffTime = d.datetime.now()
 netlitres = 0
 prevtank1 = 10
 diff = 0
 x = 0
+logged_in = False
 
-app = Flask(__name__)
 tank1data = 40
 tank2data = 40
 current =  "OFF"
@@ -25,16 +34,36 @@ def index():
 @app.route('/')
 def home():
     lastOffTime = d.datetime.now()
-    return render_template('login.html')
+    return render_template('home.html')
 
+@app.route('/login', methods=['GET'])
+def login_page():
+    return render_template('login.html')
+@app.route('/logout', methods=['GET'])
+def logout():
+    global logged_in
+    logged_in = False
+    return render_template('login.html')
 @app.route('/login', methods=['POST'])
-def do_admin_login():
+def check_login():
+    global logged_in
     if request.form['password'] == 'password' and request.form['username'] == 'admin':
+        logged_in = True
+        return redirect('/water')
+    else:
+        return render_template('login.html')
+@app.route('/water', methods=['GET'])
+def water():
+    if logged_in:
         return render_template('index_gauge.html')
     else:
-        return home()
-
-
+        return redirect('/login')
+@app.route('/energy', methods=['GET'])
+def energy():
+    if logged_in:
+        return render_template('energy.html')
+    else:
+        return redirect('/login')
 @app.route('/deptho/<int:depth_cm1>', methods=['GET'])
 def show_post1(depth_cm1):
     global tank1data
@@ -48,12 +77,11 @@ def show_post1(depth_cm1):
     netlitres = netlitres + diff
     return 'ok'
 
-@app.route('/change', methods=['GET','POST'])
-def change():
+@app.route('/change/<string:switch>', methods=['GET','POST'])
+def change(switch):
     global option
-    value = request.form['switch']
-    option = value
-    return value
+    option = switch
+    return option
 
 
 @app.route('/stat', methods=['GET'])
@@ -107,4 +135,5 @@ def return_global():
 
 
 if __name__ == "__main__":
+
     app.run(host='0.0.0.0', port=8080, debug=True)
