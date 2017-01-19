@@ -1,5 +1,6 @@
 #define trigPin D2
 #define echoPin D1
+
 #include <ESP8266WiFi.h>
 const char* ssid = "Kriyative";//type your ssid
 const char* password = "Kriyative1!";//type your password

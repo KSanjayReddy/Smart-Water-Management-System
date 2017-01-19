@@ -1,3 +1,4 @@
+
 <html>
   <head>
 
@@ -16,14 +17,13 @@
           "chart": {
             "theme": "fint",
             "caption": "Overhead Tank Level",
-            "subcaption": "Kriyative Edge",
+            "subcaption": "Zairza",
             "lowerLimit": "0",
-            "upperLimit": "50",
+            "upperLimit": "40",
             "lowerLimitDisplay": "Empty",
             "upperLimitDisplay": "Full",
             "numberSuffix": " ltrs",
             "showValue": "1",
-            "chartBottomMargin": "25"
         },
         "value": 0
       }
@@ -31,14 +31,13 @@
           "chart": {
             "theme": "fint",
             "caption": "Sump Tank Level",
-            "subcaption": "Kriyative Edge",
+            "subcaption": "Zairza",
             "lowerLimit": "0",
-            "upperLimit": "50",
+            "upperLimit": "40",
             "lowerLimitDisplay": "Empty",
             "upperLimitDisplay": "Full",
             "numberSuffix": " ltrs",
             "showValue": "1",
-            "chartBottomMargin": "25"
         },
         "value": 0
       }
@@ -106,8 +105,8 @@
   </script>
 
   </head>
-  <body>
-    <nav class="navbar navbar-default">
+  <body >
+    <nav class="nav navbar-inverse">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -135,27 +134,36 @@
 </nav>
 <div class="row">
   <div class="col-md-2 col-md-offset-10">
-    <div id='date_now'></div>
+    <h4 id = 'date_now'></h4>
   </div>
 </div>
 <div class="row">
-  <div class="col-md-4 col-md-offset-1">
-    <h2>Control Panel</h2>
-    <h2>Status of button is : <span id='status4'>No Data</span></h2>
-    <div id = 'auto'onclick="change_status('auto')" class="btn btn-primary">Auto</div>
-    <div id = 'off' onclick="change_status('off')" class="btn btn-primary">OFF</div>
-    <div id = 'on' onclick="change_status('on')" class="btn btn-primary">ON</div>
+<div class="col-md-4 col-md-offset-1" class="mode">
+
+  <div class="container">
+    <div class="panel panel-primary">
+      <div class="panel-body">
+      <h3>Mode Selected : <span id='status4'>No Data</span></h3>
+      <div id = 'auto'onclick="change_status('auto')" class="btn btn-primary">Auto</div>
+      <div id = 'off' onclick="change_status('off')" class="btn btn-primary">Remote OFF</div>
+      <div id = 'on' onclick="change_status('on')" class="btn btn-primary">Remote ON</div>
+
+</div>
+
+    </div>
+  </div>
+
   </div>
 </div>
 
     <div class="tank1" style="float:left;margin-left:100px">
-      <h1>Overhead Tank Level</h1>
+      <h2>Overhead Tank Level</h2>
       <h1 style="margin-left:100px" id='status1'>No Data</h1>
         <div id="chart-container-1">Tank 1 will load here</div>
     </div>
 
     <div class="tank2" style="float:right;margin-right:100px">
-      <h1>Sump Tank Level</h1>
+      <h2>Sump Tank Level</h2>
       <h1 style="margin-left:100px" id='status2'>No Data</h1>
       <div id='chart-container-2'>Tank 2 will load here</div>
     </div>

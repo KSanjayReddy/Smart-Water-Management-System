@@ -1,10 +1,11 @@
-#define trigPin D2
-#define echoPin D1
+#define trigPin D1
+#define echoPin D2
 #include <ESP8266WiFi.h>
-const char* ssid = "Kriyative";//type your ssid
-const char* password = "Kriyative1!";//type your password
-IPAddress ip(192,168,1,8);
-int calibval=48;
+const char* ssid = "My ASUS";//type your ssid
+const char* password = "sripad1996";//type your password
+IPAddress ip(192,168,43,97);
+int d=50;
+
 
 WiFiClient Client;
 int realdistance;
@@ -45,8 +46,9 @@ void setup()
     delayMicroseconds(10); //10 micro second pulse emitted
     digitalWrite(trigPin, LOW);
     duration = pulseIn(echoPin, HIGH); //pulse duration counted
-    distance = (340*duration)/20000;  //in cm
-    realdistance=calibval-distance;
+    //distance = (340*duration)/20000;  //in cm
+    distance = (340*duration)/10000;
+    realdistance=d-distance;
     Serial.println(realdistance);
     ////////////////////////////////////////////////////////////
     //
