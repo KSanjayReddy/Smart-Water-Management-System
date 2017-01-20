@@ -2,9 +2,6 @@
 # Logout button that send request to /logout
 
 
-
-
-
 from flask import Flask, render_template, url_for
 from flask import jsonify, request
 from flask import flash, redirect,abort
@@ -33,8 +30,11 @@ def index():
 
 @app.route('/')
 def home():
+    if logged_in:
+        return render_template('home.html')
+    else:
+        return redirect('/login')
     lastOffTime = d.datetime.now()
-    return render_template('home.html')
 
 @app.route('/login', methods=['GET'])
 def login_page():
@@ -49,7 +49,7 @@ def check_login():
     global logged_in
     if request.form['password'] == 'password' and request.form['username'] == 'admin':
         logged_in = True
-        return redirect('/water')
+        return redirect('/')
     else:
         return render_template('login.html')
 @app.route('/water', methods=['GET'])
@@ -102,7 +102,7 @@ def status():
     if current == "On":
         return 'abc$'
     else:
-        return 'xyz$'
+        return 'zyx$'
 
 
 @app.route('/depths/<int:depth_cm2>', methods=['GET'])
