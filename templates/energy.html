@@ -5,11 +5,28 @@
     <link rel="stylesheet" href="static/bootstrap.min.css" media="screen" title="no title" charset="utf-8">
     <meta charset="utf-8">
     <link rel="stylesheet" href="/static/3.css" type="text/css">
-
-
-
-
     <title>Energy</title>
+    <script type="text/javascript" src="{{url_for('static', filename='jquery-3.1.1.min.js') }}"></script>
+
+    <script type="text/javascript">
+
+  $(document).ready(function(){
+    d = new Date();
+  })
+  var change_status = function(option){
+    $.ajax({
+      url : '/change/'+option,
+      method : 'GET',
+      success : function(data){
+
+      }
+    })
+  }
+
+  </script>
+
+
+
   </head>
   <body>
 
@@ -50,20 +67,20 @@
 
       <img padding="10%" src="/static/house.jpg" height="50%" width="50%" margin="5%" >
         <br> <br>
-      <a id = 'auto' margin="10%" href="#" class="btn btn-lg btn-success">ON</a>
-      <a href="#" class="btn btn-lg btn-danger"> OFF</a>
+        <div id = 'a1on' onclick="change_status('a1on')" class="btn btn-success">Appliance 2 ON</div>
+        <div id = 'a1off' onclick="change_status('a1off')" class="btn btn-danger">Appliance 2 OFF</div>
     </div>
 
     <div class="col-md-4 col-md-pull-4 ">
 
       <img  src="/static/house.jpg" height="50%" width="50%" margin="5%" >
       <br><br>
-      <a id = 'auto' margin="10%" href="#" class="btn btn-lg btn-success">ON</a>
-      <a href="#" class="btn btn-lg btn-danger"> OFF</a>
+      <div id = 'a2on' onclick="change_status('a2on')" class="btn btn-success">Appliance 1 ON</div>
+      <div id = 'a2off' onclick="change_status('a2off')" class="btn btn-danger">Appliance 1 OFF</div>
     </div>
 
     <div class="col-md-4">
-    <h1>hello <span>ddd</span></h1>
+    <h1>Powee: <span id = "power">0</span></h1>
     <br>
     <h1>world <span>gfgf</span></h1>
     </div>
